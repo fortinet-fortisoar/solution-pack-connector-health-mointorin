@@ -1,0 +1,11 @@
+{
+    "@context": "\/api\/3\/contexts\/WorkflowCollection",
+    "@type": "WorkflowCollection",
+    "name": "10 - SP - \tConnector Health Monitoring",
+    "description": null,
+    "visible": true,
+    "image": null,
+    "uuid": "2719e300-d8db-4e9e-bf04-2470f32d0028",
+    "deletedAt": null,
+    "recordTags": []
+}
