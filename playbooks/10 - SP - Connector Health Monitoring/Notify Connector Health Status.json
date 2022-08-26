@@ -43,7 +43,7 @@
                     "from": "{{vars.sendFrom}}",
                     "type": "Manual Input",
                     "content": "<p>{{vars.steps.Final_List_Summary.data['formatted_string']}}<\/p>",
-                    "subject": "Connector Health Check Failed",
+                    "subject": "Connector Health Status",
                     "iri_list": "",
                     "body_type": "Rich Text",
                     "file_name": "",
@@ -211,7 +211,7 @@
             "name": "Check Include List",
             "description": null,
             "arguments": {
-                "includeConnectersList": "{% set data = [] %}\n{% for item in vars.includeList %}{% if item.Version is eq(\"\") %}\n{% if item.ConfigName | length is eq(0) %}{% set _ = data.append(vars.connectorList | json_query(\"[?Name == '\"+item.Name+\"']\")) %}{% else %}\n{% for config in item.ConfigName %}{% set result = vars.connectorList | json_query(\"[?Name == '\"+item.Name+\"']\") | json_query(\"[?ConfigName == '\"+config+\"']\") %}{% if result | length is gt(0) %}{% set _ = data.append(result) %}{% else %}{% set _ = vars.wrongConfigList.append({\"Name\": item.Name, \"Version\": item.Version, \"ConfigName\": config, \"Status\": \"Configuration Not Present\"})%}{% endif %}{% endfor %}{% endif %}{% else %}{% set result = vars.connectorList | json_query(\"[?Name == '\"+item.Name+\"']\") | json_query(\"[?Version == '\"+item.Version+\"']\") %}{% if result | length is gt(0) %}{% for config in item.ConfigName %}{% set output = result | json_query(\"[?Name == '\"+item.Name+\"']\") | json_query(\"[?Version == '\"+item.Version+\"']\") | json_query(\"[?ConfigName == '\"+config+\"']\") %}{% if output | length is gt(0) %}{% set _ = data.append(output) %}{% else %}{% set _ = vars.wrongConfigList.append({\"Name\": item.Name, \"Version\": item.Version, \"ConfigName\": config, \"Status\": \"Configuration Not Present\"}) %}{% endif %}{% endfor %}{% endif %}{% endif %}{% endfor %}{{data | flatten(levels = 1)}}"
+                "includeConnectersList": "{% set data = [] %}{% for item in vars.includeList %}{% if item.Version is eq(\"\") %}{% if item.ConfigName | length is eq(0) %}{% set _ = data.append(vars.connectorList | json_query(\"[?Name == '\"+item.Name+\"']\")) %}{% else %}{% for config in item.ConfigName %}{% set result = vars.connectorList | json_query(\"[?Name == '\"+item.Name+\"']\") | json_query(\"[?ConfigName == '\"+config+\"']\") %}{% if result | length is gt(0) %}{% set _ = data.append(result) %}{% else %}{% set _ = vars.wrongConfigList.append({\"Name\": item.Name, \"Version\": item.Version, \"ConfigName\": config, \"Status\": \"Configuration Not Present\"})%}{% endif %}{% endfor %}{% endif %}{% else %}{% set result = vars.connectorList | json_query(\"[?Name == '\"+item.Name+\"']\") | json_query(\"[?Version == '\"+item.Version+\"']\") %}{% if result | length is gt(0) %}{% if item.ConfigName | length is eq(0) %}{% set _ = data.append(vars.connectorList | json_query(\"[?Name == '\"+item.Name+\"']\") | json_query(\"[?Version == '\"+item.Version+\"']\")) %}{% else %}{% for config in item.ConfigName %}{% set output = result | json_query(\"[?Name == '\"+item.Name+\"']\") | json_query(\"[?Version == '\"+item.Version+\"']\") | json_query(\"[?ConfigName == '\"+config+\"']\") %}{% if output | length is gt(0) %}{% set _ = data.append(output) %}{% else %}{% set _ = vars.wrongConfigList.append({\"Name\": item.Name, \"Version\": item.Version, \"ConfigName\": config, \"Status\": \"Configuration Not Present\"}) %}{% endif %}{% endfor %}{% endif %}{% endif %}{% endif %}{% endfor %}{{data | flatten(levels = 1)}}"
             },
             "status": null,
             "top": "975",
@@ -276,7 +276,7 @@
                 "config": "32feb20e-5ac5-407b-a49b-b687bc293922",
                 "params": {
                     "body": "<p>{{vars.steps.Final_List_Summary.data['formatted_string']}}<\/p>",
-                    "subject": "",
+                    "subject": "Connector Health Status",
                     "iri_list": "",
                     "cc_recipients": "",
                     "to_recipients": "{{vars.sendTo}}",
