@@ -19,21 +19,31 @@
     "steps": [
         {
             "@type": "WorkflowStep",
-            "name": "Start",
+            "name": "Connector List Via ConfigId and ConfigName",
             "description": null,
             "arguments": {
-                "step_variables": {
-                    "input": {
-                        "params": []
-                    }
-                }
+                "output": "{% set data = [] %}{% for item in vars.connectorInfo %}{% set configName = vars.IdToName.get(item.config_id) %}{% set _ = data.append({\"Name\":vars.connector.label, \"Version\":vars.connector.version, \"ConfigName\":configName, \"Status\":item.status, \"Message\":item.message}) %}{% endfor %}{{data}}"
             },
             "status": null,
-            "top": "30",
+            "top": "435",
             "left": "125",
-            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
             "group": null,
-            "uuid": "e7a9ade7-4bfc-4398-bcbe-5d21fe3b7946"
+            "uuid": "4c72d109-0d43-4f0e-b81b-7cfbd6f3071e"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "connector": "{{vars.input.params.connector}}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "5b84c136-ce0d-487e-8527-1dab88d45691"
         },
         {
             "@type": "WorkflowStep",
@@ -68,34 +78,33 @@
         },
         {
             "@type": "WorkflowStep",
-            "name": "Connector List Via ConfigId and ConfigName",
+            "name": "Start",
             "description": null,
             "arguments": {
-                "output": "{% set data = [] %}{% for item in vars.connectorInfo %}{% set configName = vars.IdToName.get(item.config_id) %}{% set _ = data.append({\"Name\":vars.connector.label, \"Version\":vars.connector.version, \"ConfigName\":configName, \"Status\":item.status, \"Message\":item.message}) %}{% endfor %}{{data}}"
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    }
+                }
             },
             "status": null,
-            "top": "435",
+            "top": "30",
             "left": "125",
-            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
             "group": null,
-            "uuid": "4c72d109-0d43-4f0e-b81b-7cfbd6f3071e"
-        },
-        {
-            "@type": "WorkflowStep",
-            "name": "Configuration",
-            "description": null,
-            "arguments": {
-                "connector": "{{vars.input.params.connector}}"
-            },
-            "status": null,
-            "top": "165",
-            "left": "125",
-            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "group": null,
-            "uuid": "5b84c136-ce0d-487e-8527-1dab88d45691"
+            "uuid": "e7a9ade7-4bfc-4398-bcbe-5d21fe3b7946"
         }
     ],
     "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Check Health Status",
+            "targetStep": "\/api\/3\/workflow_steps\/9ebaff06-814f-4b2c-92b4-f649a6472170",
+            "sourceStep": "\/api\/3\/workflow_steps\/5b84c136-ce0d-487e-8527-1dab88d45691",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "68497045-ae63-4b5d-9807-89f4e20fc658"
+        },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Configuration",
@@ -113,15 +122,6 @@
             "label": null,
             "isExecuted": false,
             "uuid": "d225aa49-cd13-443b-aaa9-1ac72b6a14ea"
-        },
-        {
-            "@type": "WorkflowRoute",
-            "name": "Configuration -> Check Health Status",
-            "targetStep": "\/api\/3\/workflow_steps\/9ebaff06-814f-4b2c-92b4-f649a6472170",
-            "sourceStep": "\/api\/3\/workflow_steps\/5b84c136-ce0d-487e-8527-1dab88d45691",
-            "label": null,
-            "isExecuted": false,
-            "uuid": "68497045-ae63-4b5d-9807-89f4e20fc658"
         }
     ],
     "groups": [],
@@ -130,5 +130,7 @@
     "owners": [],
     "isPrivate": false,
     "deletedAt": null,
-    "recordTags": []
+    "recordTags": [
+        "Subroutine"
+    ]
 }

@@ -1,7 +1,7 @@
 {
     "@context": "\/api\/3\/contexts\/WorkflowCollection",
     "@type": "WorkflowCollection",
-    "name": "10 - SP - \tConnector Health Monitoring",
+    "name": "10 - SP - Connector Health Monitoring",
     "description": null,
     "visible": true,
     "image": null,
