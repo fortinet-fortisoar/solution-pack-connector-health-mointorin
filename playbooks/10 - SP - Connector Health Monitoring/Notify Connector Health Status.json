@@ -43,7 +43,7 @@
                     "from": "{{vars.sendFrom}}",
                     "type": "Manual Input",
                     "content": "<p>{{vars.steps.Final_List_Summary.data['formatted_string']}}<\/p>",
-                    "subject": "Connector Health Status",
+                    "subject": "Connector Health Status - {{arrow.utcnow().format(\"YYYY-MM-DD\")}}",
                     "iri_list": "",
                     "body_type": "Rich Text",
                     "file_name": "",
@@ -276,7 +276,7 @@
                 "config": "32feb20e-5ac5-407b-a49b-b687bc293922",
                 "params": {
                     "body": "<p>{{vars.steps.Final_List_Summary.data['formatted_string']}}<\/p>",
-                    "subject": "Connector Health Status",
+                    "subject": "Connector Health Status - {{arrow.utcnow().format(\"YYYY-MM-DD\")}}",
                     "iri_list": "",
                     "cc_recipients": "",
                     "to_recipients": "{{vars.sendTo}}",
