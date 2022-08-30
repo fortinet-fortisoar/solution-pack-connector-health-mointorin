@@ -8,8 +8,8 @@
     "prerequisite": null,
     "publisher": "Fortinet",
     "certified": "true",
-    "description": "Solution Pack send the connector health status notification via email based on provided connector list.",
-    "help": null,
+    "description": "Solution Pack sends connector health status notification via email based on user-specified connectors list.",
+    "help": "https://github.com/fortinet-fortisoar/solution-pack-connector-health-monitoring/blob/release/1.0.0/README.md",
     "category": [],
     "supportInfo": "Fortinet Customer Support",
     "iconLarge": null,
@@ -18,9 +18,15 @@
     "contents": {
         "playbooks": [
             {
-                "name": "10 - SP - \tConnector Health Monitoring"
+                "name": "10 - SP - Connector Health Monitoring"
             }
         ],
-        "globalVariables": []
+        "globalVariables": [],
+        "connectors": [
+            {
+                "name": "Exchange",
+                "apiName": "exchange"
+            }
+        ]
     }
 }

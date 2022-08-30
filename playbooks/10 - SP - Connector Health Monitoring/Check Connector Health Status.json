@@ -22,7 +22,7 @@
             "name": "Connector List Via ConfigId and ConfigName",
             "description": null,
             "arguments": {
-                "output": "{% set data = [] %}{% for item in vars.connectorInfo %}{% set configName = vars.IdToName.get(item.config_id) %}{% set _ = data.append({\"Name\":vars.connector.label, \"Version\":vars.connector.version, \"ConfigName\":configName, \"Status\":item.status, \"Message\":item.message}) %}{% endfor %}{{data}}"
+                "output": "{% set data = [] %}{% for item in vars.connectorInfo %}{% set configName = vars.IdToName.get(item.config_id) %}{% set _ = data.append({\"name\":vars.connector.label, \"version\":vars.connector.version, \"configName\":configName, \"status\":item.status, \"message\":item.message}) %}{% endfor %}{{data}}"
             },
             "status": null,
             "top": "435",
