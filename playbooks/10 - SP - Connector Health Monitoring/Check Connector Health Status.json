@@ -1,0 +1,136 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Check Connector Health Status",
+    "aliasName": null,
+    "tag": null,
+    "description": "This playbook will check connector health status.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "connector"
+    ],
+    "synchronous": false,
+    "collection": "\/api\/3\/workflow_collections\/2719e300-d8db-4e9e-bf04-2470f32d0028",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/e7a9ade7-4bfc-4398-bcbe-5d21fe3b7946",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Connector List Via ConfigId and ConfigName",
+            "description": null,
+            "arguments": {
+                "output": "{% set data = [] %}{% for item in vars.connectorInfo %}{% set configName = vars.IdToName.get(item.config_id) %}{% set _ = data.append({\"name\":vars.connector.label, \"version\":vars.connector.version, \"configName\":configName, \"status\":item.status, \"message\":item.message}) %}{% endfor %}{{data}}"
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "4c72d109-0d43-4f0e-b81b-7cfbd6f3071e"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "connector": "{{vars.input.params.connector}}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "5b84c136-ce0d-487e-8527-1dab88d45691"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Check Health Status",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/integration\/connectors\/healthcheck\/{{vars.connector.name}}\/{{vars.connector.version}}\/?config={{vars.item.config_id}}",
+                    "body": "",
+                    "method": "GET"
+                },
+                "version": "3.2.1",
+                "for_each": {
+                    "item": "{{vars.connector.configuration}}",
+                    "parallel": false,
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "FSR: Make FortiSOAR API Call",
+                "step_variables": {
+                    "IdToName": "{% set data = dict() %}{% for item in vars.connector.configuration %}{% set _ = data.update({item.config_id : item.name}) %}{% endfor %}{{data}}",
+                    "connectorInfo": "{{ vars.result | json_query(\"[*][data][]\") }}"
+                }
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "group": null,
+            "uuid": "9ebaff06-814f-4b2c-92b4-f649a6472170"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "group": null,
+            "uuid": "e7a9ade7-4bfc-4398-bcbe-5d21fe3b7946"
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Check Health Status",
+            "targetStep": "\/api\/3\/workflow_steps\/9ebaff06-814f-4b2c-92b4-f649a6472170",
+            "sourceStep": "\/api\/3\/workflow_steps\/5b84c136-ce0d-487e-8527-1dab88d45691",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "68497045-ae63-4b5d-9807-89f4e20fc658"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/5b84c136-ce0d-487e-8527-1dab88d45691",
+            "sourceStep": "\/api\/3\/workflow_steps\/e7a9ade7-4bfc-4398-bcbe-5d21fe3b7946",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8054603b-993b-45cf-b8a5-6a4890fa5ecf"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check Health Status -> Create Connector List",
+            "targetStep": "\/api\/3\/workflow_steps\/4c72d109-0d43-4f0e-b81b-7cfbd6f3071e",
+            "sourceStep": "\/api\/3\/workflow_steps\/9ebaff06-814f-4b2c-92b4-f649a6472170",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d225aa49-cd13-443b-aaa9-1ac72b6a14ea"
+        }
+    ],
+    "groups": [],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "dd936c85-7cf0-4c3d-8fd4-cddce1a45172",
+    "owners": [],
+    "isPrivate": false,
+    "deletedAt": null,
+    "recordTags": [
+        "Subroutine"
+    ]
+}
