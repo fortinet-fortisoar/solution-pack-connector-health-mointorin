@@ -101,7 +101,7 @@
             "description": null,
             "arguments": {
                 "params": {
-                    "value": "<style>\n    tr:hover {background-color: #D6EEEE;}\n    table, th, td {\n    border: 1px solid black;\n    border-collapse: collapse;\n    }\n<\/style>\n{% if vars.finalList | json_query(\"[?status == 'Disconnected']\") | length is gt(0) %}\n<table border=\"1\" style=\"width:100%\">\n    <tr>\n        <th style=\"width:20%;\" align=\"center\" >Connector Name<\/th>\n        <th style=\"width:10%\" align=\"center\">Connector Version<\/th>\n        <th style=\"width:10%\" align=\"center\">Configuration Name<\/th>\n        <th style=\"width:10%\" align=\"center\">Status<\/th>\n        <th style=\"width:50%\" align=\"center\">Error Message<\/th>\n    <\/tr>\n    <tbody>\n        <b> Disconnected Connectors: <\/b>\n        {% for item in vars.finalList  | sort(attribute = \"name\") | sort(attribute = \"status\") | json_query(\"[?status == 'Disconnected']\") %}\n        <tr>\n            <td>\n                {{item.name}}<\/a>   \n            <\/td>\n            <td align=\"center\">\n                {{item.version}}\n            <\/td>\n            <td align=\"center\">\n                {{item.configName}}\n            <\/td>\n            <td align=\"center\" style=\"color:red\">\n                {{item.status}}\n            <\/td>\n            <td>\n                {{item.message  | escape}}\n            <\/td>\n        <\/tr>\n        {% endfor %}\n    <\/tbody>\n<\/table>\n<br>\n{% endif %}\n{% if vars.isIncludeListEmpty is eq(true) %}\n{% if vars.finalList | json_query(\"[?status == 'Available']\") | length is gt(0) %}\n<table border=\"1\" style=\"width:70%\">\n    <tr>\n        <th style=\"width:20%;\" align=\"center\" >Connector Name<\/th>\n        <th style=\"width:15%\" align=\"center\">Connector Version<\/th>\n        <th style=\"width:15%\" align=\"center\">Configuration Name<\/th>\n        <th style=\"width:20%\" align=\"center\">Status<\/th>\n    <\/tr>\n    <tbody>\n        <b> Available Connectors: <\/b>\n        {% for item in vars.finalList  | sort(attribute = \"name\") | sort(attribute = \"status\") | json_query(\"[?status == 'Available']\") %}\n        <tr>\n            <td>\n                {{item.name}}<\/a>   \n            <\/td>\n            <td align=\"center\">\n                {{item.version}}\n            <\/td>\n            <td align=\"center\">\n                {{item.configName}}\n            <\/td>\n            <td align=\"center\" style=\"color:green\">\n                {{item.status}}\n            <\/td>\n        <\/tr>\n        {% endfor %}\n    <\/tbody>\n<\/table>\n<br>\n{% endif %}\n{% endif %}\n{% if vars.isIncludeListEmpty is eq(false) %}\n{% if vars.finalList | json_query(\"[?status == 'Available']\") | length is gt(0) %}\n<table border=\"1\" style=\"width:70%\">\n    <tr>\n        <th style=\"width:20%;\" align=\"center\" >Connector Name<\/th>\n        <th style=\"width:15%\" align=\"center\">Connector Version<\/th>\n        <th style=\"width:15%\" align=\"center\">Configuration Name<\/th>\n        <th style=\"width:20%\" align=\"center\">Status<\/th>\n    <\/tr>\n    <tbody>\n        <b> Available Connectors: <\/b>\n        {% for item in vars.finalList  | sort(attribute = \"name\") | sort(attribute = \"status\") | json_query(\"[?status == 'Available']\") %}\n        <tr>\n            <td>\n                {{item.name}}<\/a>   \n            <\/td>\n            <td align=\"center\">\n                {{item.version}}\n            <\/td>\n            <td align=\"center\">\n                {{item.configName}}\n            <\/td>\n            <td align=\"center\" style=\"color:green\">\n                {{item.status}}\n            <\/td>\n        <\/tr>\n        {% endfor %}\n    <\/tbody>\n<\/table>\n<br>\n{% endif %}\n{% if vars.includeInvalidEntries | length is gt(0) %}\n<b> Invalid Entries found in the specified Include List, following entries are not present: <\/b>\n<table border=\"1\" style=\"width:70%\">\n    <tr>\n        <th style=\"width:20%;\" align=\"center\" >Connector Name<\/th>\n        <th style=\"width:15%\" align=\"center\">Connector Version<\/th>\n        <th style=\"width:15%\" align=\"center\">Configuration Name<\/th>\n        <th style=\"width:20%\" align=\"center\">Reason<\/th>\n    <\/tr>\n    <tbody>\n        {% for item in vars.includeInvalidEntries | sort(attribute = \"name\") %}\n        <tr>\n            {% if item.name is eq(\"\") %}\n            <td align=\"center\">\n                {{\"-\"}}\n            <\/td>\n            {% else %}\n            <td align=\"center\">\n                {{item.name}}\n            <\/td>\n            {% endif %}\n            {% if item.version is eq(\"\") %}\n            <td align=\"center\">\n                {{\"-\"}}\n            <\/td>\n            {% else %}\n            <td align=\"center\">\n                {{item.version}}\n            <\/td>\n            {% endif %}\n            {% if item.status is ne(\"Configuration Not Present\") %}\n            <td align=\"center\">\n                {{\"-\"}}\n            <\/td>\n            {% else %}\n            <td align=\"center\">\n                {{item.configName}}\n            <\/td>\n            {% endif %}\n            <td>\n                {{item.status}}\n            <\/td>\n        <\/tr>\n        {% endfor %}\n    <\/tbody>\n<\/table>\n{% if vars.suggestionList | length is gt(0) %}\n<b>For reference here are the valid list of entries: <\/b><br>\n{% for item in vars.suggestionList | sort(attribute = \"name\") %}\n<b>{{item.label}}<\/b> with version <b>{{item.version}}<\/b> has the following configurations: {% set data = [] %}{% for obj in item.configuration %}{% set _ = data.append(obj.name) %}{% endfor %}<b>{{data | join(\", \")}}<br><\/b>\n{% endfor %}\n{% endif %}\n<br>\n{% endif %}\n{% endif %}"
+                    "value": "<style>\n    tr:hover {background-color: #D6EEEE;}\n    table, th, td {\n    border: 1px solid black;\n    border-collapse: collapse;\n    }\n<\/style>\n{% if vars.finalList | json_query(\"[?status == 'Disconnected']\") | length is gt(0) %}\n<table border=\"1\" style=\"width:100%\">\n    <tr>\n        <th style=\"width:20%;\" align=\"center\" >Connector Name<\/th>\n        <th style=\"width:10%\" align=\"center\">Connector Version<\/th>\n        <th style=\"width:10%\" align=\"center\">Configuration Name<\/th>\n        <th style=\"width:10%\" align=\"center\">Status<\/th>\n        <th style=\"width:50%\" align=\"center\">Error Message<\/th>\n    <\/tr>\n    <tbody>\n        <b> Disconnected Connectors: <\/b>\n        {% for item in vars.finalList  | sort(attribute = \"name\") | sort(attribute = \"status\") | json_query(\"[?status == 'Disconnected']\") %}\n        <tr>\n            <td>\n                {{item.name}}<\/a>   \n            <\/td>\n            <td align=\"center\">\n                {{item.version}}\n            <\/td>\n            <td align=\"center\">\n                {{item.configName}}\n            <\/td>\n            <td align=\"center\" style=\"color:red\">\n                {{item.status}}\n            <\/td>\n            <td>\n                {{item.message  | escape}}\n            <\/td>\n        <\/tr>\n        {% endfor %}\n    <\/tbody>\n<\/table>\n<br>\n{% endif %}\n{% if vars.isIncludeListEmpty is eq(true) %}\n{% if vars.finalList | json_query(\"[?status == 'Available']\") | length is gt(0) %}\n<table border=\"1\" style=\"width:50%\">\n    <tr>\n        <th style=\"width:40%;\" align=\"center\" >Connector Name<\/th>\n        <th style=\"width:20%\" align=\"center\">Connector Version<\/th>\n        <th style=\"width:20%\" align=\"center\">Configuration Name<\/th>\n        <th style=\"width:20%\" align=\"center\">Status<\/th>\n    <\/tr>\n    <tbody>\n        <b> Available Connectors: <\/b>\n        {% for item in vars.finalList  | sort(attribute = \"name\") | sort(attribute = \"status\") | json_query(\"[?status == 'Available']\") %}\n        <tr>\n            <td>\n                {{item.name}}<\/a>   \n            <\/td>\n            <td align=\"center\">\n                {{item.version}}\n            <\/td>\n            {% if item.configName is none %}\n            <td align=\"center\">\n                {{\"-\"}}\n            <\/td>\n            {% else %}\n            <td align=\"center\" >\n                {{item.configName}}\n            <\/td>\n            {% endif %}\n            <td align=\"center\" style=\"color:green\">\n                {{item.status}}\n            <\/td>\n        <\/tr>\n        {% endfor %}\n    <\/tbody>\n<\/table>\n<br>\n{% endif %}\n{% endif %}\n{% if vars.isIncludeListEmpty is eq(false) %}\n{% if vars.finalList | json_query(\"[?status == 'Available']\") | length is gt(0) %}\n<table border=\"1\" style=\"width:50%\">\n    <tr>\n        <th style=\"width:40%;\" align=\"center\" >Connector Name<\/th>\n        <th style=\"width:20%\" align=\"center\">Connector Version<\/th>\n        <th style=\"width:20%\" align=\"center\">Configuration Name<\/th>\n        <th style=\"width:20%\" align=\"center\">Status<\/th>\n    <\/tr>\n    <tbody>\n        <b> Available Connectors: <\/b>\n        {% for item in vars.finalList  | sort(attribute = \"name\") | sort(attribute = \"status\") | json_query(\"[?status == 'Available']\") %}\n        <tr>\n            <td>\n                {{item.name}}<\/a>   \n            <\/td>\n            <td align=\"center\">\n                {{item.version}}\n            <\/td>\n            {% if item.configName is none %}\n            <td align=\"center\">\n                {{\"-\"}}\n            <\/td>\n            {% else %}\n            <td align=\"center\" >\n                {{item.configName}}\n            <\/td>\n            {% endif %}\n            <td align=\"center\" style=\"color:green\">\n                {{item.status}}\n            <\/td>\n        <\/tr>\n        {% endfor %}\n    <\/tbody>\n<\/table>\n<br>\n{% endif %}\n{% if vars.includeInvalidEntries | length is gt(0) %}\n<b> Invalid Entries found in the specified Include List, following entries are not present: <\/b>\n<table border=\"1\" style=\"width:60%\">\n    <tr>\n        <th style=\"width:33.33%;\" align=\"center\" >Connector Name<\/th>\n        <th style=\"width:16.66%\" align=\"center\">Connector Version<\/th>\n        <th style=\"width:16.66%\" align=\"center\">Configuration Name<\/th>\n        <th style=\"width:33.33%\" align=\"center\">Reason<\/th>\n    <\/tr>\n    <tbody>\n        {% for item in vars.includeInvalidEntries | sort(attribute = \"name\") %}\n        <tr>\n            {% if item.name is eq(\"\") %}\n            <td>\n                {{\"-\"}}\n            <\/td>\n            {% else %}\n            <td>\n                {{item.name}}\n            <\/td>\n            {% endif %}\n            {% if item.version is eq(\"\") %}\n            <td align=\"center\">\n                {{\"-\"}}\n            <\/td>\n            {% else %}\n            <td align=\"center\">\n                {{item.version}}\n            <\/td>\n            {% endif %}\n            {% if item.status is ne(\"Configuration Not Present\") %}\n            <td align=\"center\">\n                {{\"-\"}}\n            <\/td>\n            {% else %}\n            <td align=\"center\">\n                {{item.configName}}\n            <\/td>\n            {% endif %}\n            <td>\n                {{item.status}}\n            <\/td>\n        <\/tr>\n        {% endfor %}\n    <\/tbody>\n<\/table>\n{% if vars.suggestionList | length is gt(0) %}\n<b>For reference here are the valid list of entries: <\/b><br>\n{% for item in vars.suggestionList | sort(attribute = \"name\") %}\n<b>{{item.label}}<\/b> with version <b>{{item.version}}<\/b> has the following configurations: {% set data = [] %}{% for obj in item.configuration %}{% set _ = data.append(obj.name) %}{% endfor %}<b>{{data | join(\", \")}}<br><\/b>\n{% endfor %}\n{% endif %}\n<br>\n{% endif %}\n{% endif %}"
                 },
                 "version": "3.2.1",
                 "connector": "cyops_utilities",
@@ -124,7 +124,8 @@
                 "when": "{{vars.installedConnectorList | length is gt(0)}}",
                 "for_each": {
                     "item": "{{vars.includesConfiguredList | flatten(levels = 1)}}",
-                    "parallel": false,
+                    "__bulk": false,
+                    "parallel": true,
                     "condition": ""
                 },
                 "arguments": {
@@ -152,7 +153,8 @@
                 "when": "{{vars.installedConnectorList | length is gt(0)}}",
                 "for_each": {
                     "item": "{{vars.installedConnectorList}}",
-                    "parallel": false,
+                    "__bulk": false,
+                    "parallel": true,
                     "condition": "{{vars.item.config_count is ne(-1)}}"
                 },
                 "arguments": {
@@ -540,5 +542,66 @@
     "deletedAt": null,
     "recordTags": [
         "Scheduled"
+    ],
+    "schedules": [
+        {
+            "id": "gAAAAABjEIf1X_WXBKODp1LEIuFPMN5vOXs6pUqoX0nvVYxgadugkHQttByZPrPtxSRjWLGVjdqamrzb5eUwXDIcHipRO9WkIA==",
+            "crontab": {
+                "id": 10,
+                "minute": "0",
+                "hour": "9",
+                "day_of_week": "*",
+                "day_of_month": "*",
+                "month_of_year": "*",
+                "timezone": "UTC"
+            },
+            "interval": null,
+            "name": "Notify Connector Health Status",
+            "task": "workflow.tasks.periodic_task",
+            "args": "[]",
+            "kwargs": {
+                "wf_iri": "\/api\/3\/workflows\/7ae88bb1-96b4-4728-9317-a810dec910d7",
+                "priority": {
+                    "@id": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+                    "@type": "Picklist",
+                    "itemValue": "Medium",
+                    "orderIndex": 1,
+                    "color": null,
+                    "icon": null,
+                    "listName": "\/api\/3\/picklist_names\/e104ef72-11b4-4d0c-be0e-e1cf3b87b5f2",
+                    "uuid": "2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+                    "id": 111,
+                    "importedBy": []
+                },
+                "exit_if_running": true,
+                "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+                "name": "Notify Connector Health Status",
+                "description": "Notify Connector Health Status",
+                "auth": {
+                    "auth_method": "CS HMAC"
+                },
+                "referenceid": null,
+                "schedule_entry_name": "Notify Connector Health Status",
+                "schedule_id": "661d5f81-2558-44ff-b301-c26f544cf660",
+                "start_time": null,
+                "expires": null
+            },
+            "queue": null,
+            "exchange": null,
+            "routing_key": null,
+            "headers": "{}",
+            "priority": 3,
+            "expires": null,
+            "expire_seconds": null,
+            "one_off": false,
+            "start_time": null,
+            "enabled": false,
+            "last_run_at": null,
+            "total_run_count": 0,
+            "date_changed": "2022-09-01T06:38:51.163753Z",
+            "description": "Notify Connector Health Status",
+            "solar": null,
+            "clocked": null
+        }
     ]
 }
