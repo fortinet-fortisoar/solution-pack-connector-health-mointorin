@@ -3,19 +3,17 @@
 - **Version**: 1.0.0
 - **Certified**: Yes
 - **Publisher**: Fortinet
-- **Compatible Version**: FortiSOAR v7.2.0 and above
+- **Compatible Version**: FortiSOAR v7.2.0 and later
 
 # Overview
 
 The **Connector Health Monitoring** Solution Pack sends the connector health status notification via email based on provided connector list.
 
-You can monitor all the configured connectors, managed using an exclude and an include list. The solution pack is capable of displaying connector health status of all specified versions and configurations.
+The solution pack is capable of displaying connector health status of all specified versions and configurations in the email notification.
 
-The following image shows an example notification email, detailing each connector's health status:
+Following image shows a sample notification email listing all the connectors and their health status.
 
-| ![](https://raw.githubusercontent.com/fortinet-fortisoar/solution-pack-connector-health-monitoring/blob/release/1.0.0/docs/res/include-list-output.png) | ![](https://raw.githubusercontent.com/fortinet-fortisoar/solution-pack-connector-health-monitoring/blob/release/1.0.0/docs/res/exclude-list-output.png) |
-|:-------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------:|
-|                                                               Included connectors' status                                                               |                                                               Excluded connectors' status                                                               |
+![](https://raw.githubusercontent.com/fortinet-fortisoar/solution-pack-connector-health-monitoring/release/1.0.0/docs/res/exclude-list-output.png)
 
 # Next Steps
 

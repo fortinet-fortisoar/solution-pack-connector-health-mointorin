@@ -9,10 +9,7 @@ The **Connector Health Monitoring** solution pack contains the following resourc
 
 | Name     | Description                 |
 |:---------|:----------------------------|
-| SMTP     | Helps send emails from a specified email address to designated alert recipients |
 | Exchange | Provides a robust, platform-independent, and simple interface for communicating with Microsoft Exchange 2007-2016 Server or Office 365 using Exchange Web Services (EWS) |
-
-> **NOTE:** You can configure either of the connectors
 
 ## Playbook Collection
 
