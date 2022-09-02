@@ -125,7 +125,7 @@
                 "for_each": {
                     "item": "{{vars.includesConfiguredList | flatten(levels = 1)}}",
                     "__bulk": false,
-                    "parallel": true,
+                    "parallel": false,
                     "condition": ""
                 },
                 "arguments": {
@@ -154,7 +154,7 @@
                 "for_each": {
                     "item": "{{vars.installedConnectorList}}",
                     "__bulk": false,
-                    "parallel": true,
+                    "parallel": false,
                     "condition": "{{vars.item.config_count is ne(-1)}}"
                 },
                 "arguments": {
@@ -545,7 +545,7 @@
     ],
     "schedules": [
         {
-            "id": "gAAAAABjEIf1X_WXBKODp1LEIuFPMN5vOXs6pUqoX0nvVYxgadugkHQttByZPrPtxSRjWLGVjdqamrzb5eUwXDIcHipRO9WkIA==",
+            "id": "gAAAAABjEZP5_OyD4oFc9TFYDs8KSKPzw2xi2qbjzLR6nrr76WiSSc0TFgAcqO4icBcUoYCVoCilF6hD8teGbbdUWTiABC8QEQ==",
             "crontab": {
                 "id": 10,
                 "minute": "0",
