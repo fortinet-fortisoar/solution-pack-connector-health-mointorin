@@ -1,0 +1,13 @@
+[
+    {
+        "name": "exchange",
+        "label": "Exchange",
+        "category": "Email Server",
+        "description": "The Exchange connector provides a robust, platform-independent, and simple interface for communicating with Microsoft Exchange 2007-2016 Server or Office 365 using Exchange Web Services (EWS).",
+        "publisher": null,
+        "operation_roles": [],
+        "configurations": [],
+        "dataImports": [],
+        "install_mode": "rpm"
+    }
+]
